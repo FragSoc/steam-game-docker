@@ -3,6 +3,7 @@ FROM steamcmd/steamcmd AS steambuild
 
 # REPO_SETUP: Get the appid of the dedicated server from steamdb or similar
 ARG APPID=<YOUR APPID HERE>
+ARG STEAM_BETAS
 ARG UID=999
 ARG GID=999
 
@@ -24,7 +25,7 @@ USER GAME_NAME
 RUN steamcmd \
         +login anonymous \
         +force_install_dir $INSTALL_LOC \
-        +app_update $APPID validate \
+        +app_update $APPID $STEAM_BETAS validate \
         +quit && \
     # REPO_SETUP: you will probably want to symlink the game's default config directory
     # REPO_SETUP: to $CONFIG_LOC here
