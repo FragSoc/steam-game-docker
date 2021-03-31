@@ -1,9 +1,6 @@
 FROM steamcmd/steamcmd AS steambuild
 # REPO_SETUP: Add maintainers
 
-# REPO_SETUP: Get the appid of the dedicated server from steamdb or similar
-ARG APPID=<YOUR APPID HERE>
-ARG STEAM_BETA
 ARG UID=999
 ARG GID=999
 
@@ -30,6 +27,9 @@ USER GAME_NAME
 # REPO_SETUP: line to this steamcmd command.
 
 # Install the GAME_NAME server
+# REPO_SETUP: Get the appid of the dedicated server from steamdb or similar
+ARG APPID=<YOUR APPID HERE>
+ARG STEAM_BETA
 RUN steamcmd \
         +login anonymous \
         +force_install_dir $INSTALL_LOC \
