@@ -3,7 +3,7 @@ FROM steamcmd/steamcmd AS steambuild
 
 # REPO_SETUP: Get the appid of the dedicated server from steamdb or similar
 ARG APPID=<YOUR APPID HERE>
-ARG STEAM_BETAS
+ARG STEAM_BETA
 ARG UID=999
 ARG GID=999
 
@@ -21,11 +21,19 @@ RUN mkdir -p $INSTALL_LOC && \
 
 USER GAME_NAME
 
+# REPO_SETUP: You might consider installing steam appid 1007 ("+app_update 1007 validate \")
+# REPO_SETUP: alongside your game here if your game needs the steam libraries
+# REPO_SETUP: to appear in the server browser etc.
+
+# REPO_SETUP: If your game is windows only, you *might* be able to run it inside a linux container
+# REPO_SETUP: with wine and xvfb-runn. If so, add a "+@sSteamCmdForcePlatformType windows \"
+# REPO_SETUP: line to this steamcmd command.
+
 # Install the GAME_NAME server
 RUN steamcmd \
         +login anonymous \
         +force_install_dir $INSTALL_LOC \
-        +app_update $APPID $STEAM_BETAS validate \
+        +app_update $APPID $STEAM_BETA validate \
         +quit && \
     # REPO_SETUP: you will probably want to symlink the game's default config directory
     # REPO_SETUP: to $CONFIG_LOC here

@@ -15,4 +15,5 @@ This template comes with four build arguments:
 
 - `APPID` for changing the steam appid, this might be desirable if your game has multiple distinct versions on steam
 - `UID` and `GID` for changing the user and group IDs of the user inside the container, they both default to `999`
-- `STEAM_BETAS` for specifying a steam beta string for the game, defaults to a blank string
+- `STEAM_BETA` for specifying a steam beta string for the game (passed to `steamcmd`), defaults to a blank string.
+  An example might be `-beta mybeta -betapassword letmein`.
