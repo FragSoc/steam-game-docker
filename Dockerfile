@@ -7,8 +7,15 @@ ARG GID=999
 ENV CONFIG_LOC="/config"
 ENV INSTALL_LOC="/GAME_NAME"
 ENV HOME=${INSTALL_LOC}
+ENV DEBIAN_FRONTEND="noninteractive"
 
 USER root
+
+
+# Install libsdl, used by steamcmd
+RUN apt update && \
+    apt install -y --no-install-recommends libsdl2-2.0-0
+
 RUN mkdir -p $INSTALL_LOC && \
     groupadd -g $GID GAME_NAME && \
     useradd -m -s /bin/false -u $UID -g $GID GAME_NAME && \
