@@ -11,15 +11,16 @@ ENV DEBIAN_FRONTEND="noninteractive"
 
 USER root
 
-
-# Install libsdl, used by steamcmd
+# REPO_SETUP: Append any packages that your server needs to the
+# REPO_SETUP: `apt install` line.
 RUN apt update && \
+    # Install libsdl, used by steamcmd
     apt install -y --no-install-recommends libsdl2-2.0-0
 
+# Setup directory structure and user permissions
 RUN mkdir -p $INSTALL_LOC && \
     groupadd -g $GID GAME_NAME && \
     useradd -m -s /bin/false -u $UID -g $GID GAME_NAME && \
-    # Setup directory structure and permissions
     mkdir -p $CONFIG_LOC $INSTALL_LOC && \
     chown -R GAME_NAME:GAME_NAME $INSTALL_LOC $CONFIG_LOC
 
@@ -30,8 +31,11 @@ USER GAME_NAME
 # REPO_SETUP: to appear in the server browser etc.
 
 # REPO_SETUP: If your game is windows only, you *might* be able to run it inside a linux container
-# REPO_SETUP: with wine and xvfb-runn. If so, add a "+@sSteamCmdForcePlatformType windows \"
-# REPO_SETUP: line to this steamcmd command.
+# REPO_SETUP: with wine and xvfb-run. If so, add a "+@sSteamCmdForcePlatformType windows \"
+# REPO_SETUP: line to this steamcmd command, and install xvfb and wine.
+# REPO_SETUP: Alternatively, see https://github.com/FragSoc/steamcmd-wine-xvfb-docker;
+# REPO_SETUP: you can use this as the base image for this template if you want :)
+# REPO_SETUP: (you'll still need that that platform force steamcmd command)
 
 # Install the GAME_NAME server
 # REPO_SETUP: Get the appid of the dedicated server from steamdb or similar
