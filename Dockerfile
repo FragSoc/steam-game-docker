@@ -40,10 +40,10 @@ USER GAME_NAME
 # Install the GAME_NAME server
 # REPO_SETUP: Get the appid of the dedicated server from steamdb or similar
 ARG APPID=<YOUR APPID HERE>
-ARG STEAM_BETA
+ARG STEAM_BETA=""
 RUN steamcmd \
-        +login anonymous \
         +force_install_dir $INSTALL_LOC \
+        +login anonymous \
         +app_update $APPID $STEAM_BETA validate \
         +quit && \
     # REPO_SETUP: you will probably want to symlink the game's default config directory
